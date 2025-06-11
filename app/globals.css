@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+/* bg-[var(--color-airbnb)] */
+
 :root {
   --color-airbnb: #ff385c;
   --color-airbnb-dark: #d50027;
