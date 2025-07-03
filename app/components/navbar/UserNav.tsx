@@ -1,15 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import MenuLink from './MenuLink';
+import LogoutButton from "../LogoutButton";
 
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useSignupModal from '@/app/hooks/useSignupModal';
 
-const UserNav = () => {
+interface UserNavProps {
+  userId?: string | null;
+}
 
+const UserNav: React.FC<UserNavProps> = ({
+  userId
+}) => {
+
+  const router = useRouter();
   const loginModel = useLoginModal();
   const signupModel = useSignupModal();
   
@@ -32,8 +40,41 @@ const UserNav = () => {
         </button>
         {isOpen && (
           <div className='w-[220px] absolute top-[60px] right-0 bg-white-100 border border-gray-300 rounded-xl shadow-md flex flex-col cursor-pointer'>
-            <MenuLink label="Log In" onClick={() => {setIsOpen(false); loginModel.open()}} />
-            <MenuLink label="Sign Up" onClick={() => {setIsOpen(false); signupModel.open()}} />
+            {userId ? (
+              <>
+              <MenuLink label='Inbox' 
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push(`/inbox`)
+                }} />
+
+                <MenuLink label='My properties' 
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push(`/myproperties`)
+                }} />
+
+                <MenuLink label='My favorites' 
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push(`/myfavorites`)
+                }} />
+
+                <MenuLink label='My reservations' 
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push(`/myreservations`)
+                }} />
+                <LogoutButton /> 
+              </>
+            )  : (
+              <>
+                <MenuLink label="Log In" onClick={() => {setIsOpen(false); loginModel.open()}} />
+                <MenuLink label="Sign Up" onClick={() => {setIsOpen(false); signupModel.open()}} />
+              </>
+              )
+            }
+            
           </div>
         )}
     </div>

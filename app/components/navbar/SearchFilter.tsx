@@ -1,8 +1,14 @@
+'use client';
+import useSearchModal from '@/app/hooks/useSearchModel'
 import React from 'react'
 
+
 const SearchFilter = () => {
+  const searchModal = useSearchModal();
   return (
-    <div className='h-[48px] lg:h-[64px] flex flex-row items-center justify-between border border-gray-100 rounded-full'>
+    <div 
+      onClick={() => searchModal.open('location')}
+      className='h-[48px] lg:h-[64px] flex flex-row items-center justify-between border border-gray-100 rounded-full'>
       <div className='hidden lg:block'>
         <div className='flex flex-row items-center justify-between'>
             <div className='w-[250px] h-[48px] lg:h-[64px] px-8 flex flex-col rounded-full hover:bg-gray-100 cursor-pointer justify-center'>
